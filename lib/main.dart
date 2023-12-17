@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multiplatform/home_page_android.dart';
@@ -12,6 +14,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePageAndroid(),);
+    if (Platform.isAndroid) {
+      return const MaterialApp(
+        home: HomePageAndroid(),
+      );
+    } else if (Platform.isIOS) {
+      return const CupertinoApp(
+        home: HomePageIos(),
+      );
+    } else {
+      return const Center(
+        child: Text('Platform not supported'),
+      );
+    }
   }
 }
