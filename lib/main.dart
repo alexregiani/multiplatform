@@ -1,9 +1,8 @@
-import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:multiplatform/home_page_android.dart';
-import 'package:multiplatform/home_page_ios.dart';
+import 'package:multiplatform/home_page.dart';
+import 'package:responsive_framework/breakpoint.dart';
+import 'package:responsive_framework/responsive_breakpoints.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,18 +13,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
-      return const MaterialApp(
-        home: HomePageAndroid(),
-      );
-    } else if (Platform.isIOS) {
-      return const CupertinoApp(
-        home: HomePageIos(),
-      );
-    } else {
-      return const Center(
-        child: Text('Platform not supported'),
-      );
-    }
+    return ResponsiveBreakpoints.builder(
+      breakpoints: [
+        const Breakpoint(start: 0, end: 450, name: MOBILE),
+        const Breakpoint(start: 451, end: 800, name: TABLET),
+        const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+        const Breakpoint(start: 1921, end: double.infinity, name: '4k'),
+      ],
+      child: const MaterialApp(
+        home: HomePage(),
+      ),
+    );
   }
 }
